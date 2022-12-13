@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "crudv15": {
+      "hosting": {
+        "scCrud": [
+          "crudv15"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "crudv15"
+  }
+}

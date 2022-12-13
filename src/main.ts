@@ -1,7 +1,20 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { AppComponent } from './app/app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { appRoutes } from './app/app.routes';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from './enviroments/enviroment';
 
-import { AppModule } from './app/app.module';
-
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(appRoutes),
+    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(
+      provideFirebaseApp(() => initializeApp(environment.firebase))
+    ),
+    importProvidersFrom(provideFirestore(() => getFirestore())),
+  ],
+});

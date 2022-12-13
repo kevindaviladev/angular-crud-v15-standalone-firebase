@@ -1,0 +1,34 @@
+<button class="btn btn-primary" (click)="_router.navigate(['users/add'])">Agregar jugador</button>
+<input
+  [formControl]="searcher"
+  type="text"
+  placeholder="Buscar jugador"
+  class="form-control mt-2"
+/>
+<div class="players" *ngIf="players$ | async as players">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Decks</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let player of players; let i = index">
+        <th scope="row">{{ i }}</th>
+        <td>{{ player.name }}</td>
+        <td>
+          <li *ngFor="let deck of player.decks">
+            {{ deck.name }} - {{ deck.cards }} cartas
+          </li>
+        </td>
+        <td>
+          <button class="btn btn-primary" (click)="editPlayer(player)">Editar</button>
+          <button class="btn btn-danger ms-2" (click)="deletePlayer(player)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
